@@ -9,7 +9,7 @@ export default function Layout({ children }) {
 
     return (
         <>
-            {/* {
+            {
                 user?.email ?
                     <div className="main-body">
                         < Header />
@@ -27,10 +27,10 @@ export default function Layout({ children }) {
                     <div className="auth">
                         <Login />
                     </div>
-            } */}
-            <div className="main-body">
+            }
+            {/* <div className="main-body">
                 < Header />
-                <div className="flex flex-row min-h-screen w-full overflow-hidden gap-3">
+                <div className="flex flex-row min-h-screen w-full overflow-hidden gap-5">
                     <div className="slidebar pt-[80px]">
                         <SlideBar />
                     </div>
@@ -39,7 +39,7 @@ export default function Layout({ children }) {
                     </div>
                 </div>
 
-            </div >
+            </div > */}
         </>
     )
 }
