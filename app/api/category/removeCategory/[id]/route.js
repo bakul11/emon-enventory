@@ -1,30 +1,30 @@
 import connectDB from "@/db/db"
-import productDB from "@/model/productModel";
+import categoryDB from "@/model/categoryModel";
 import { NextResponse } from "next/server";
 
 export const DELETE = async (req, { params }) => {
     try {
         await connectDB();
         const id = params.id;
-        const product = await productDB.findById(id);
+        const product = await categoryDB.findById(id);
         if (!product) {
             return NextResponse.json({
-                message: 'product not found!'
+                message: 'Category not found!'
             })
         }
 
-        const removePd = await productDB.findByIdAndDelete(id);
+        const removePd = await categoryDB.findByIdAndDelete(id);
 
         //success
         return NextResponse.json({
-            message: 'Product remove successfully done',
+            message: 'Category remove successfully done',
             success: true,
             removePd
         })
 
     } catch (error) {
         return NextResponse.json({
-            message: 'Product remove fail',
+            message: 'Category remove fail',
             error: error?.message
         })
     }

@@ -76,7 +76,6 @@ const page = () => {
                     })
                         .then(res => res.json())
                         .then(result => {
-                            console.log('result', result)
                             if (result.success) {
                                 toast.success(result?.message)
                                 setLoadding(false);

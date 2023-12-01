@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import useActiveUser from '@/hook/useActiveUser';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+const page = ({ params }) => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
@@ -23,7 +23,7 @@ const page = () => {
     const [user] = useActiveUser();
     const router = useRouter();
 
-    const userId = user?._id;
+    const id = params.id;
 
 
     //handle review photo
@@ -62,8 +62,8 @@ const page = () => {
                         userId
                     }
                     setLoadding(true);
-                    fetch(`/api/supplier/addSupplier`, {
-                        method: 'POST',
+                    fetch(`/api/supplier/updateSupplier/${id}`, {
+                        method: 'PUT',
                         headers: {
                             "Content-Type": 'application/json'
                         },
@@ -82,7 +82,7 @@ const page = () => {
                                 setReview('')
                                 setAddress('')
                                 setMobile('')
-                               
+
                             } else {
                                 if (result?.error) {
                                     toast.error(result?.message)
@@ -108,7 +108,7 @@ const page = () => {
         <div className='add-product'>
             <div className="product-title mb-8">
                 <h2 className='text-slate-800 text-[19px] font-semibold'>Supplier Management</h2>
-                <p className='text-gray-500 text-[14px]'>Add/Update Customer</p>
+                <p className='text-gray-500 text-[14px]'>Edit/Update Supplier </p>
             </div>
             {/* add prouct form  */}
 
@@ -179,7 +179,7 @@ const page = () => {
                             <div className="flex items-center gap-2 flex-wrap">
                                 <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
                                     <div className="flex items-center gap-1">
-                                        Submit
+                                        update
                                         <FaArrowRight />
                                     </div>
                                 </button>

@@ -57,9 +57,7 @@ const Register = () => {
                     setLoadding(false);
                     reset()
                     setError('')
-                    setTimeout(() => {
-                        return router.push('/home')
-                    }, 1000);
+                    router.push('/home')
                 } else {
                     if (result?.error) {
                         toast.error(result?.message);

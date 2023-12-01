@@ -134,7 +134,6 @@ const page = () => {
                     <div className="form-item my-2">
                         <label htmlFor="gg" className='text-slate-500 mb-2 font-medium text-[15px]'>Country</label>
                         <input type='text' id='gg' placeholder='Country Name' value={country} className='w-full text-[14px] outline-none rounded-md py-2 px-2 ring-1 mt-2 ring-blue-300 focus:ring-2 focus:ring-green-400 placeholder-gray-500' onChange={(e) => setCountry(e.target.value)} required={true} />
-
                     </div>
                 </div>
                 <div className="lg:my-3 grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-x-5 gap-y-2" >
@@ -151,7 +150,6 @@ const page = () => {
                     <div className="form-item my-2">
                         <label htmlFor="gwwg" className='text-slate-500 mb-2 font-medium text-[15px]'>Address</label>
                         <input type='text' id='gwwg' placeholder='Address' value={address} className='w-full text-[14px] outline-none rounded-md py-2 px-2 ring-1 mt-2 ring-blue-300 focus:ring-2 focus:ring-green-400 placeholder-gray-500' onChange={(e) => setAddress(e.target.value)} required={true} />
-
                     </div>
                 </div>
 

@@ -1,22 +1,27 @@
 "use client"
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
-import axios from 'axios';
 import SuplierCart from '../(site)/SuplierCart';
+import useActiveUser from '@/hook/useActiveUser';
 
 const page = () => {
-    const [suplier, setSuplier] = useState([]);
+    const [supplier, setSupplier] = useState([]);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [user] = useActiveUser();
+    const userId = user?._id;
 
-    const fetchUserList = async () => {
-        const { data } = await axios.get('https://jsonplaceholder.typicode.com/users');
-        setSuplier(data)
-    }
 
     useEffect(() => {
-        fetchUserList()
-    }, [])
+        fetch(`/api/supplier/getUserBaseSupplier/${userId}`)
+            .then(res => res.json())
+            .then(result => setSupplier(result))
+
+    }, [userId, supplier])
+
+
+
 
 
     return (
@@ -27,7 +32,7 @@ const page = () => {
                     <p className='text-gray-500 text-[15px]'>Manage your Supplier</p>
                 </div>
                 <div className="product-title">
-                    <Link href='/user/add-suppliers' className='inline-block bg-orange-400 p-2 text-[14px] rounded-md  capitalize text-white font-medium'>
+                    <Link href='/home/user/add-suppliers' className='inline-block bg-orange-400 p-2 text-[14px] rounded-md  capitalize text-white font-medium'>
                         <div className="flex items-center gap-1">
                             <FaPlus />
                             add Supplier
@@ -45,20 +50,22 @@ const page = () => {
             {/* show product in table  */}
             <table className='border-collapse border border-blue-100 table-auto'>
                 <thead>
-                    <tr className='text-[14px] text-gray-500 font-[300] capitalize'>
-                        <th className='border border-blue-100 px-6'>#</th>
-                        <th className='border border-blue-100 px-6'>User Name</th>
-                        <th className='border border-blue-100 px-6'>phone</th>
-                        <th className='border border-blue-100 px-6'>email</th>
-                        <th className='border border-blue-100 px-6'>role</th>
-                        <th className='border border-blue-100 px-6'>Created On</th>
-                        <th className='border border-blue-100 px-6'>Status</th>
-                        <th className='border border-blue-100 px-6'>action</th>
+                    <tr className='text-[14px] text-slate-700 font-[200] capitalize'>
+                        <th className='border border-blue-100 p-2'>#</th>
+                        <th className='border border-blue-100 p-2'>User Name</th>
+                        <th className='border border-blue-100 p-2'>email</th>
+                        <th className='border border-blue-100 p-2'>phone</th>
+                        <th className='border border-blue-100 p-2'>city</th>
+                        <th className='border border-blue-100 p-2'>state</th>
+                        <th className='border border-blue-100 p-2'>create on</th>
+                        <th className='border border-blue-100 p-2'>address</th>
+                        <th className='border border-blue-100 p-2'>status</th>
+                        <th className='border border-blue-100 p-2'>action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        suplier?.map((user, index) => <SuplierCart user={user} index={index} />)
+                        supplier?.filter((pd) => pd.userName.toLowerCase().includes(search)).map((item, index) => <SuplierCart item={item} index={index} />)
 
                     }
 

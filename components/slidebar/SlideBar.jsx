@@ -14,7 +14,7 @@ const SlideBar = () => {
     const handleOpenSlidebar = () => setOpenOpenSlidebar(!openSlidebar);
 
     return (
-        <div className={`min-h-screen  border px-4 bg-white  border-r-slate-200 relative ${openSlidebar ? 'w-[80px]' : 'w-[250px]'}`}>
+        <div className={`min-h-screen  border px-4 bg-slate-800  border-r-slate-200 relative ${openSlidebar ? 'w-[80px]' : 'w-[230px]'}`}>
             <p className={`text-slate-600 text-[15px] mt-5  ${openSlidebar ? 'hidden' : 'block'}`}>Main</p>
             <h3 className='text-[#67748E] capitalize flex items-center gap-x-2 my-5 ml-2 px-2'>
                 <MdDashboard />

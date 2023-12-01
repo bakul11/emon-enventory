@@ -9,37 +9,35 @@ export default function Layout({ children }) {
 
     return (
         <>
-            {
+            {/* {
                 user?.email ?
                     <div className="main-body">
                         < Header />
-                        <div className="flex flex-row min-h-screen overflow-hidden gap-5">
+                        <div className="flex flex-row min-h-screen w-full justify-between">
                             <div className="slidebar pt-[80px]">
                                 <SlideBar />
                             </div>
-                            <div className="children mt-28 px-12 overflow-hidden">
+                            <div className="children mt-28 px-12 overflow-hidden w-full">
                                 {children}
                             </div>
                         </div>
-
                     </div >
                     :
                     <div className="auth">
                         <Login />
                     </div>
-            }
-            {/* <div className="main-body">
+            } */}
+            <div className="main-body">
                 < Header />
-                <div className="flex flex-row min-h-screen w-full overflow-hidden gap-5">
+                <div className="flex flex-row min-h-screen w-full justify-between">
                     <div className="slidebar pt-[80px]">
                         <SlideBar />
                     </div>
-                    <div className="children mt-28 px-12 overflow-hidden">
+                    <div className="children mt-28 px-12 overflow-hidden w-full">
                         {children}
                     </div>
                 </div>
-
-            </div > */}
+            </div >
         </>
     )
 }
