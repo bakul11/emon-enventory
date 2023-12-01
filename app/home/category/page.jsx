@@ -80,7 +80,7 @@ const page = () => {
 
                                     {/* search  */}
                                     <div className="search-box my-8 relative">
-                                        <FaSearch className='absolute left-2 top-3 text-gray-500 ' />
+                                        <FaSearch className='absolute left-2 top-3 text-gray-500 '/>
                                         <input type="text" value={search} placeholder='Search Products' className='bg-white py-2 pl-8 outline-none ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setSearch(e.target.value)} />
                                     </div>
 
