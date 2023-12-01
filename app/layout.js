@@ -2,7 +2,7 @@
 import Toast from '@/components/toast/Toast'
 import './globals.css'
 import { useEffect, useState } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+
 
 
 // export const metadata = {
@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 export default function RootLayout({ children }) {
   const [loadding, setLoadding] = useState(true);
-  const queryClient = new QueryClient()
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,10 +28,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <title>Inventory Management Software</title>
       <body>
-        <QueryClientProvider client={queryClient}>
-          {children}
-          <Toast />
-        </QueryClientProvider>
+        {children}
+        <Toast />
       </body>
     </html>
   )

@@ -64,7 +64,7 @@ const Header = () => {
                             <div className="relative">
                                 <div className="profile flex items-center gap-2 ">
                                     <div className="user-logo">
-                                        <Image src={user?.profile} className='object-cover rounded-full h-12 w-12' height={50} width={50} />
+                                        <Image src={user?.profile} alt='photo' className='object-cover rounded-full h-12 w-12' height={50} width={50} />
                                     </div>
                                     <div className="user-name">
                                         <h3 className='text-slate-800 capitalize font-medium text-[14px]'>{user?.userName}</h3>
