@@ -4,6 +4,7 @@ import { FaAngleDoubleLeft } from 'react-icons/fa'
 import { MdDashboard } from 'react-icons/md'
 import ProductMenu from './(site)/ProductMenu';
 import UserMenu from './(site)/UserMenu';
+import ParchaseMenu from './(site)/PurchaseMenu';
 
 
 
@@ -29,6 +30,9 @@ const SlideBar = () => {
 
             {/* product Menu  */}
             <UserMenu openSlidebar={openSlidebar} />
+
+            {/* product Menu  */}
+            <ParchaseMenu openSlidebar={openSlidebar} />
 
         </div>
     );

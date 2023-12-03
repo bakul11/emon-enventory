@@ -73,7 +73,7 @@ const page = () => {
 
 
         // if input not fullup
-        if (category === 'disabled' || subCategory === 'disabled' || unit === 'disabled' || unit === 'disabled' || productPhoto === '') {
+        if (category === 'disabled' || subCategory === 'disabled' || unit === 'disabled' || brand === 'disabled' || productPhoto === '') {
             return toast.error('All filled must be fillup ')
         }
 
@@ -116,9 +116,10 @@ const page = () => {
                         .then(result => {
                             if (result.success) {
                                 toast.success(result?.message)
+                                router.push('/home/products')
                                 setLoadding(false);
                                 setReview('')
-                                router.push('/home/products')
+
                             } else {
                                 if (result?.error) {
                                     toast.error(result?.message)
@@ -145,6 +146,12 @@ const page = () => {
         },
         {
             title: 'Liters'
+        },
+        {
+            title: 'Meters'
+        },
+        {
+            title: 'Ton'
         },
         {
             title: 'Gram'
@@ -177,13 +184,13 @@ const page = () => {
 
                                 <div className="form-item">
                                     <label htmlFor="eess" className='text-slate-500 my-1 font-medium text-[14px]'>Category</label>
-                                    <select value={category} id='eess' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setCategory(e.target.value)}>
+                                    <select id='eess' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setCategory(e.target.value)}>
 
-                                        <option disabled value={category} defaultValue={"disabled"} className='capitalize'>Select Category</option>
+                                        <option selected disabled value={category} defaultValue={"disabled"} className='capitalize'>Select Category</option>
                                         {
                                             categoryData?.map((item, index) => {
                                                 return (
-                                                    <option value={item?.category} key={index} className='capitalize my-2 py-2'>{item?.category}</option>
+                                                    <option value={item?.category} key={index} className='capitalize'>{item?.category}</option>
                                                 )
                                             })
                                         }
@@ -191,13 +198,13 @@ const page = () => {
                                 </div>
 
                                 <div className="form-item">
-                                    <label htmlFor="ww" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category</label>
-                                    <select id='ww' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setSubCategory(e.target.value)}>
+                                    <label htmlFor="wwee" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category</label>
+                                    <select id='wwee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setSubCategory(e.target.value)}>
                                         <option selected disabled value={subCategory} defaultValue={"disabled"} className='capitalize'>Select Sub Category</option>
                                         {
                                             subCategoryData?.map((item, index) => {
                                                 return (
-                                                    <option value={item?.title} key={index} className='capitalize py-2'>
+                                                    <option value={item?.title} key={index} className='capitalize '>
                                                         {item?.title}
                                                     </option>
                                                 )
@@ -207,13 +214,13 @@ const page = () => {
                                 </div>
 
                                 <div className="form-item">
-                                    <label htmlFor="eebb" className='text-slate-500 my-1 font-medium text-[14px]'>Brand Name</label>
-                                    <select id='ww' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setSubCategory(e.target.value)}>
-                                        <option selected disabled value={subCategory} defaultValue={"disabled"} className='capitalize'>Select Brand</option>
+                                    <label htmlFor="eeee" className='text-slate-500 my-1 font-medium text-[14px]'>Brand Name</label>
+                                    <select id='eeee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setBrand(e.target.value)}>
+                                        <option selected disabled value={brand} defaultValue={"disabled"} className='capitalize'>Select Brand</option>
                                         {
                                             brandData?.map((item, index) => {
                                                 return (
-                                                    <option value={item?.brand} key={index} className='capitalize py-2'>
+                                                    <option value={item?.brand} key={index} className='capitalize '>
                                                         {item?.brand}
                                                     </option>
                                                 )
@@ -226,8 +233,8 @@ const page = () => {
                             <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-x-5 gap-y-2">
                                 <div className="form-item lg:my-5">
                                     <label htmlFor="dddd" className='text-slate-500 my-1 font-medium text-[14px]'>Unit</label>
-                                    <select id='dddd' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setSubCategory(e.target.value)}>
-                                        <option selected disabled value={subCategory} defaultValue={"disabled"} className='capitalize'>Select Unit</option>
+                                    <select id='dddd' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setUnit(e.target.value)}>
+                                        <option selected disabled value={unit} defaultValue={"disabled"} className='capitalize'>Select Unit</option>
                                         {
                                             unitData?.map((item, index) => {
                                                 return (
