@@ -1,44 +1,45 @@
 "use client"
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import useActiveUser from '@/hook/useActiveUser';
-import axios from 'axios';
 import { PropagateLoader } from 'react-spinners';
-import SubCategoryCart from './(site)/SubCategoryCart';
-
-
+import ProductCart from '../products/(site)/ProductCart';
 
 const page = () => {
-    const [products, setProducts] = useState([]);
+    const [supplier, setSupplier] = useState([]);
     const [search, setSearch] = useState('');
-    const [loadding, setLoadding] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [user] = useActiveUser();
     const userId = user?._id;
 
 
 
-    useEffect(() => {
-        const fetchSubCategory = async () => {
-            try {
-                const { data } = await axios.get(`/api/sub-category/getCategory/${userId}`)
-                setProducts(data)
-            } catch (error) {
 
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const { data } = await axios.get(`/api/supplier/getUserBaseSupplier/${userId}`)
+                console.log('data..', data);
+                setSupplier(data)
+            } catch (error) {
+                console.log("error");
             } finally {
-                setLoadding(false)
+                setLoading(false)
             }
         }
-        fetchSubCategory()
-    }, [userId, products])
+
+        fetchProduct()
+    }, [userId, supplier])
 
 
+    console.log('product..', supplier);
 
 
     return (
         <div className="product">
             {
-                loadding ?
+                loading ?
                     <div className="loadding grid place-items-center">
                         <h2 className='text-slate-600 mb-2 text-[19px] font-medium'>Loading please wait...</h2>
                         <PropagateLoader
@@ -49,14 +50,14 @@ const page = () => {
                     :
                     <div className="product">
                         {
-                            products?.length === 0 ?
+                            supplier?.length === 0 ?
                                 <div className="product-empty grid place-items-center my-12">
-                                    <h2 className='text-slate-800 text-[19px] font-semibold'>Sub Category is Empty</h2>
-                                    <p className='text-gray-500 text-[15px] mb-2'>Please add Sub Category</p>
-                                    <Link href='/home/sub-category/add-subcategory' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
+                                    <h2 className='text-slate-800 text-[19px] font-semibold'>Supplier List is Empty</h2>
+                                    <p className='text-gray-500 text-[15px] mb-2'>Please add Supplier</p>
+                                    <Link href='/home/supplier/add-supplier' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
                                         <div className="flex items-center gap-1">
                                             <FaPlus />
-                                            add Sub Category
+                                            add new Supplier
                                         </div>
                                     </Link>
                                 </div>
@@ -64,14 +65,14 @@ const page = () => {
                                 <div className='show-product '>
                                     <div className="flex items-center justify-between flex-wrap gap-5">
                                         <div className="product-title">
-                                            <h2 className='text-slate-800 text-[19px] font-semibold'>Sub Category list</h2>
-                                            <p className='text-gray-500 text-[15px]'>View/Search product Category</p>
+                                            <h2 className='text-slate-800 text-[19px] font-semibold'>Supplier List</h2>
+                                            <p className='text-gray-500 text-[15px]'>Manage your Supplier</p>
                                         </div>
                                         <div className="product-btn">
-                                            <Link href='/home/sub-category/add-subcategory' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
+                                            <Link href='/home/supplier/add-supplier' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
                                                 <div className="flex items-center gap-1">
                                                     <FaPlus />
-                                                    add Sub Category
+                                                    add new Supplier
                                                 </div>
                                             </Link>
                                         </div>
@@ -81,25 +82,30 @@ const page = () => {
                                     {/* search  */}
                                     <div className="search-box my-8 relative">
                                         <FaSearch className='absolute left-2 top-3 text-gray-500 ' />
-                                        <input type="text" value={search} placeholder='Search Products' className='bg-white py-2 pl-8 outline-none ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setSearch(e.target.value)} />
+                                        <input type="text" value={search} placeholder='Search Supplier' className='bg-white py-2 pl-8 outline-none ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setSearch(e.target.value)} />
                                     </div>
 
 
                                     {/* show product in table  */}
                                     <div className="overflow-auto lg:overflow-hidden">
-                                        <table className=' w-full'>
+                                        <table className='w-full'>
                                             <thead>
                                                 <tr className='text-[14px] text-left text-slate-700 font-[100] capitalize'>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
-                                                    <th className=' border-blue-100 border-b-[1px] p-2'>photo</th>
-                                                    <th className=' border-blue-100 border-b-[1px] p-2'>sub category</th>
-                                                    <th className=' border-blue-100 border-b-[1px] p-2'>status</th>
-                                                    <th className=' border-blue-100 border-b-[1px] p-2'>action</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>User Name</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>email</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>phone</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>city</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>state</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>create on</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>address</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>status</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    products?.filter((item) => item.title.toLowerCase().includes(search)).map((product, index) => <SubCategoryCart product={product} index={index} />)
+                                                    supplier?.filter((item) => item.userName.toLowerCase().includes(search)).map((product, index) => <ProductCart product={product} index={index} />)
 
                                                 }
 
@@ -133,10 +139,8 @@ const page = () => {
                                 </div>
                         }
                     </div>
-
             }
         </div>
-
     );
 };
 

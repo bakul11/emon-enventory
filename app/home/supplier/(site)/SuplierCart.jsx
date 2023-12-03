@@ -33,8 +33,8 @@ const SuplierCart = ({ item, index }) => {
 
     return (
         <tr className='text-[14px] text-[#637381] font-medium capitalize' key={index}>
-            <td className='border border-blue-100 p-2'>{index + 1}</td>
-            <td className='border border-blue-100 p-2'>
+            <td className='border-blue-100 border-b-[1px] p-2'>{index + 1}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-1">
                     <div className="pd-title">
                         <Image src={profile} alt='photo' height={80} width={80} className='object-cover rounded-md h-[40px] w-[40px]' />
@@ -44,19 +44,19 @@ const SuplierCart = ({ item, index }) => {
                     </div>
                 </div>
             </td>
-            <td className='border border-blue-100 p-2'>{email}</td>
-            <td className='border border-blue-100 p-2'>{mobile}</td>
-            <td className='border border-blue-100 p-2'>{city}</td>
-            <td className='border border-blue-100 p-2'>{state}</td>
-            <td className='border border-blue-100 p-2'>{createDate}</td>
-            <td className='border border-blue-100 p-2'>{address}</td>
-            <td className='border border-blue-100 p-2'>
+            <td className='border-blue-100 border-b-[1px] p-2'>{email}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{mobile}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{city}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{state}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{createDate}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{address}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-1">
                     <div className="active bg-green-500 w-2 h-2 rounded-full"></div>
                     <p>active</p>
                 </div>
             </td>
-            <td className='border border-blue-100 p-2'>
+            <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-3 text-xl">
                     <div className="pd_update">
                         <Link href={`/home/user/update-supplier/${_id}`} >

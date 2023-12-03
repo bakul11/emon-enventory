@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader, PropagateLoader } from 'react-spinners';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import Image from 'next/image';
 import useActiveUser from '@/hook/useActiveUser';
@@ -60,6 +60,7 @@ const page = ({ params }) => {
                     })
                         .then(res => res.json())
                         .then(result => {
+                            console.log("result", result);
                             if (result.success) {
                                 toast.success(result?.message)
                                 setLoadding(false);
@@ -84,69 +85,85 @@ const page = ({ params }) => {
 
 
     return (
-        <div className='add-product'>
-            <div className="product-title mb-8">
-                <h2 className='text-slate-800 text-[19px] font-semibold'>Product Sub Category list</h2>
-                <p className='text-gray-500 text-[14px]'>View/Search product Category</p>
-            </div>
-            {/* add prouct form  */}
+        <>
+            {
+                user?.email ?
 
-            <form onSubmit={handleSubmit}>
+                    <div className='add-product'>
+                        <div className="product-title mb-8">
+                            <h2 className='text-slate-800 text-[19px] font-semibold'>Add Product Sub Category</h2>
+                            <p className='text-gray-500 text-[14px]'>View/Search product Category</p>
+                        </div>
+                        {/* add prouct form  */}
 
-                <div className="form-item">
-                    <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category</label>
-                    <input input id='ee' value={title} className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Sub Category' onChange={(e) => setTitle(e.target.value)} required={true} />
-                </div>
-                <div className="form-item my-5">
-                    <label htmlFor="pppp" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category Image</label>
-                    {
-                        review?.length ?
-                            <>
-                                <Image src={review} alt='photo' height={150} width={150} className='object-cover rounded-md' />
-                            </>
-                            :
+                        <form onSubmit={handleSubmit}>
 
-                            <div className="file-upload text-center my-8">
-                                <label htmlFor="pppp">
-                                    <IoCloudUploadOutline className='text-orange-500 text-3xl cursor-pointer flex items-center justify-center w-full' />
-                                    <p className='text-gray-500 text-[14px] text-center'>Drag & drop a file to upload</p>
-                                    <input id='pppp' type='file' className='bg-white p-2 my-2 text-[14px] hidden outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={handleReview} required={true} />
-                                </label>
+                            <div className="form-item">
+                                <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category</label>
+                                <input input id='ee' value={title} className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Sub Category' onChange={(e) => setTitle(e.target.value)} required={true} />
                             </div>
-                    }
-                </div>
+                            <div className="form-item my-5">
+                                <label htmlFor="pppp" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category Image</label>
+                                {
+                                    review?.length ?
+                                        <>
+                                            <Image src={review} alt='photo' height={150} width={150} className='object-cover rounded-md' />
+                                        </>
+                                        :
 
-                <div className="form-submit my-12 bg-white">
-                    {
-                        loadding ?
-
-                            <button className='bg-rose-500 text-white rounded-md p-2 text-[14px] capitalize font-medium' disabled>
-                                <div className="flex items-center gap-2">
-                                    Processing..
-                                    <ClipLoader color="#FFFFFF" speedMultiplier={1} size={20} />
-                                </div>
-                            </button>
-                            :
-                            <div className="flex items-center gap-2 flex-wrap">
-                                <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
-                                    <div className="flex items-center gap-1">
-                                        submit
-                                        <FaArrowRight />
-                                    </div>
-                                </button>
-                                <Link href='/home/sub-category' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
-                                    <div className="flex items-center gap-1">
-                                        <MdClose />
-                                        cancle
-                                    </div>
-                                </Link>
+                                        <div className="file-upload text-center my-8">
+                                            <label htmlFor="pppp">
+                                                <IoCloudUploadOutline className='text-orange-500 text-3xl cursor-pointer flex items-center justify-center w-full' />
+                                                <p className='text-gray-500 text-[14px] text-center'>Drag & drop a file to upload</p>
+                                                <input id='pppp' type='file' className='bg-white p-2 my-2 text-[14px] hidden outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={handleReview} required={true} />
+                                            </label>
+                                        </div>
+                                }
                             </div>
 
-                    }
-                </div>
-            </form>
+                            <div className="form-submit my-12 bg-white">
+                                {
+                                    loadding ?
 
-        </div>
+                                        <button className='bg-rose-500 text-white rounded-md p-2 text-[14px] capitalize font-medium' disabled>
+                                            <div className="flex items-center gap-2">
+                                                Processing..
+                                                <ClipLoader color="#FFFFFF" speedMultiplier={1} size={20} />
+                                            </div>
+                                        </button>
+                                        :
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
+                                                <div className="flex items-center gap-1">
+                                                    submit
+                                                    <FaArrowRight />
+                                                </div>
+                                            </button>
+                                            <Link href='/home/sub-category' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
+                                                <div className="flex items-center gap-1">
+                                                    <MdClose />
+                                                    cancle
+                                                </div>
+                                            </Link>
+                                        </div>
+
+                                }
+                            </div>
+                        </form>
+
+                    </div>
+                    :
+                    <div className="loadding grid place-items-center">
+                        <h2 className='text-slate-600 mb-2 text-[19px] font-medium'>Loading please wait...</h2>
+                        <PropagateLoader
+                            color="#f1c40f"
+                            size={25}
+                        />
+                    </div>
+
+
+            }
+        </>
     );
 };
 

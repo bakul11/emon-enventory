@@ -21,7 +21,7 @@ const UserCart = ({ user, index }) => {
 
 
     return (
-        <tr className='text-[14px] text-[#637381] font-[500] capitalize' key={index}>
+        <tr className='text-[14px] text-[#637381] font-[500] ' key={index}>
             <td className='border border-blue-100 px-6'>{index + 1}</td>
             <td className='border border-blue-100 px-6'> {username}</td>
             <td className='border border-blue-100 px-6'>{address?.zipcode}</td>

@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import { ClipLoader } from 'react-spinners';
@@ -12,8 +12,8 @@ import { useRouter } from 'next/navigation';
 
 const page = () => {
     const [productName, setProductName] = useState('');
-    const [category, setCategory] = useState('');
-    const [subCategory, setSubCategory] = useState('');
+    const [category, setCategory] = useState('disabled');
+    const [subCategory, setSubCategory] = useState('disabled');
     const [price, setPrice] = useState('');
     const [unit, setUnit] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -23,7 +23,27 @@ const page = () => {
     const [review, setReview] = useState('');
     const [loadding, setLoadding] = useState(false);
     const [user] = useActiveUser();
+    const userId = user?._id;
     const router = useRouter();
+
+
+
+
+    // load Sub Category api 
+    const [subCategoryData, setSubCategoryData] = useState([]);
+    const [subCategoryLoadding, setSubCategoryLoadding] = useState(true);
+
+    useEffect(() => {
+        fetch(`/api/sub-category/getCategory/${userId}`)
+            .then(res => res.json())
+            .then(result => {
+                console.log("result", result);
+                setSubCategoryData(result)
+            })
+
+    }, [userId, subCategoryData])
+
+    // console.log('subCategoryData', subCategoryData)
 
 
     //handle review photo
@@ -37,8 +57,20 @@ const page = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-    
 
+        if (
+
+            category === 'disabled'
+
+
+
+
+
+
+        ) {
+
+            return toast.error('must be category select')
+        }
 
         // image upload api 
         const formData = new FormData();
@@ -138,7 +170,9 @@ const page = () => {
 
                     <div className="form-item">
                         <label htmlFor="eess" className='text-slate-500 my-1 font-medium text-[14px]'>Category</label>
-                        <select id='eess' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setCategory(e.target.value)}>
+                        <select value={category} id='eess' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setCategory(e.target.value)}>
+
+                            <option disabled value={category} defaultValue={"disabled"} className='capitalize'>Select Category</option>
                             {
                                 categoryData?.map((item, index) => {
                                     return (
@@ -152,10 +186,16 @@ const page = () => {
                     <div className="form-item">
                         <label htmlFor="ww" className='text-slate-500 my-1 font-medium text-[14px]'>Sub Category</label>
                         <select id='ww' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setSubCategory(e.target.value)}>
+                            <option value={subCategory} disabled defaultValue={'disabled'} className='capitalize'>Select Sub Category</option>
                             {
-                                categoryData?.map((item, index) => {
+                                subCategoryData?.map((item, index) => {
                                     return (
-                                        <option value={item?.title} key={index} className='capitalize'>{item?.title}</option>
+                                        <option value={item?.title} key={index} className='capitalize'>
+                                            <div className="flex items-center gap-2">
+                                                <Image src={item?.photo} alt='photo' height={200} width={200} className='object-cover rounded-md h-[80px] w-[80px]' />
+                                                {item?.title}
+                                            </div>
+                                        </option>
                                     )
                                 })
                             }
@@ -191,7 +231,7 @@ const page = () => {
                     {
                         review?.length ?
                             <>
-                                <Image src={review} alt='photo' height={200} width={200} className='object-cover rounded-md' />
+                                <Image src={review} alt='photo' height={200} width={200} className='object-cover rounded-md h-[150px] w-[150px]' />
                             </>
                             :
 

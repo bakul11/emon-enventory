@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import useActiveUser from '@/hook/useActiveUser';
 import { useRouter } from 'next/navigation';
 
-const page = ({ params }) => {
+const page = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
@@ -22,8 +22,7 @@ const page = ({ params }) => {
     const [loadding, setLoadding] = useState(false);
     const [user] = useActiveUser();
     const router = useRouter();
-
-    const id = params.id;
+    const userId = user?._id;
 
 
     //handle review photo
@@ -36,6 +35,11 @@ const page = ({ params }) => {
     //handle submit form 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (profile === '') {
+            toast.error('Supplier photo must be upload!')
+            return
+        }
 
         // image upload api 
         const formData = new FormData();
@@ -50,7 +54,6 @@ const page = ({ params }) => {
                 if (data?.success) {
                     setLoadding(false);
                     const imageUrl = data.data.url;
-                    const userId = user?._id;
                     const storeData = {
                         userName,
                         email,
@@ -62,8 +65,8 @@ const page = ({ params }) => {
                         userId
                     }
                     setLoadding(true);
-                    fetch(`/api/supplier/updateSupplier/${id}`, {
-                        method: 'PUT',
+                    fetch(`/api/supplier/addSupplier`, {
+                        method: 'POST',
                         headers: {
                             "Content-Type": 'application/json'
                         },
@@ -71,10 +74,11 @@ const page = ({ params }) => {
                     })
                         .then(res => res.json())
                         .then(result => {
+                            console.log("result bro...", result);
                             if (result.success) {
                                 toast.success(result?.message)
                                 setLoadding(false);
-                                router.push('/home/user/supplier')
+                                router.push('/home/supplier')
                                 setUserName('')
                                 setEmail('');
                                 setCity('')
@@ -108,7 +112,7 @@ const page = ({ params }) => {
         <div className='add-product'>
             <div className="product-title mb-8">
                 <h2 className='text-slate-800 text-[19px] font-semibold'>Supplier Management</h2>
-                <p className='text-gray-500 text-[14px]'>Edit/Update Supplier </p>
+                <p className='text-gray-500 text-[14px]'>Add/Update Customer</p>
             </div>
             {/* add prouct form  */}
 
@@ -118,7 +122,7 @@ const page = ({ params }) => {
 
                     <div className="form-item">
                         <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Supplier Name</label>
-                        <input input id='ee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name' onChange={(e) => setUserName(e.target.value)} required={true} />
+                        <input input id='ee' value={userName} className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name' onChange={(e) => setUserName(e.target.value)} required={true} />
                     </div>
 
                     <div className="form-item">
@@ -179,11 +183,11 @@ const page = ({ params }) => {
                             <div className="flex items-center gap-2 flex-wrap">
                                 <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
                                     <div className="flex items-center gap-1">
-                                        update
+                                        Submit
                                         <FaArrowRight />
                                     </div>
                                 </button>
-                                <Link href='/home/user/supplier' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
+                                <Link href='/home/supplier' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
                                     <div className="flex items-center gap-1">
                                         <MdClose />
                                         cancle
