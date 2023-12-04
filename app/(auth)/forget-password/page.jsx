@@ -9,6 +9,7 @@ import { BeatLoader } from 'react-spinners';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 import { BsEnvelope } from "react-icons/bs";
+import Link from 'next/link';
 
 
 const page = () => {
