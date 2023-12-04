@@ -9,7 +9,7 @@ export default function Layout({ children }) {
 
     return (
         <>
-            {/* {
+            {
                 user?.email ?
                     <div className="main-body">
                         < Header />
@@ -26,8 +26,9 @@ export default function Layout({ children }) {
                     <div className="auth">
                         <Login />
                     </div>
-            } */}
-            <div className="main-body">
+            }
+
+            {/* <div className="main-body">
                 < Header />
                 <div className="flex flex-row min-h-screen w-full justify-between">
                     <div className="slidebar pt-[80px]">
@@ -37,7 +38,7 @@ export default function Layout({ children }) {
                         {children}
                     </div>
                 </div>
-            </div >
+            </div > */}
         </>
     )
 }

@@ -65,7 +65,7 @@ const page = () => {
                                 <div className='show-product '>
                                     <div className="flex items-center justify-between flex-wrap gap-5">
                                         <div className="product-title">
-                                            <h2 className='text-slate-800 text-[19px] font-semibold'>users List</h2>
+                                            <h2 className='text-slate-800 text-[19px] font-semibold'>Users List</h2>
                                             <p className='text-gray-500 text-[15px]'>Manage your user</p>
                                         </div>
                                         <div className="product-btn">
@@ -93,13 +93,11 @@ const page = () => {
                                                 <tr className='text-[14px] text-left text-slate-700 font-[100] capitalize'>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>SKU</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>category</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>sub category</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>brand</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>price</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>Quantity</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>unit</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>address</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>email</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>role</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>created on</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>status</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>

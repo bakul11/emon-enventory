@@ -137,6 +137,7 @@ const page = () => {
 
     }
 
+    // unit data 
     const unitData = [
         {
             title: 'Kg'
@@ -145,16 +146,19 @@ const page = () => {
             title: 'Pices'
         },
         {
-            title: 'Liters'
+            title: 'Litre'
         },
         {
-            title: 'Meters'
+            title: 'Metre'
         },
         {
-            title: 'Ton'
+            title: 'Dozon'
         },
         {
-            title: 'Gram'
+            title: 'gm'
+        },
+        {
+            title: 'ml'
         }
     ]
 

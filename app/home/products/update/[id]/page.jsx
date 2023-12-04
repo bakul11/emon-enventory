@@ -143,18 +143,22 @@ const page = ({ params }) => {
             title: 'Pices'
         },
         {
-            title: 'Liters'
+            title: 'Litre'
         },
         {
-            title: 'Meters'
+            title: 'Metre'
         },
         {
-            title: 'Ton'
+            title: 'Dozon'
         },
         {
-            title: 'Gram'
+            title: 'gm'
+        },
+        {
+            title: 'ml'
         }
     ]
+
 
 
 
