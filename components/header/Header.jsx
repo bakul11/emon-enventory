@@ -19,6 +19,7 @@ const Header = () => {
     //Handle Toggle Profile 
     const handleOpenProfile = () => setOpen(!open)
 
+
     //Handle Logout 
     const handleLogOut = () => {
         Cookies.remove('user');
@@ -38,10 +39,10 @@ const Header = () => {
             <div className="flex items-center justify-between ">
 
                 <div className="logo">
-                    <div className='font-bold text-slate-800 uppercase flex items-center gap-2'>
+                    <Link href='/home' className='font-bold text-slate-800 uppercase flex items-center gap-2 cursor-pointer'>
                         <BiSolidShoppingBags className='text-yellow-500 text-5xl' />
                         <span className='text-2xl font-bold'>tenda pos</span>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="profile-details flex items-center gap-5">

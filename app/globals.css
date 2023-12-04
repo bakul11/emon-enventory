@@ -22,3 +22,22 @@ h3 {
   padding: 0;
 }
 
+
+
+/* overview-data */
+
+.overview-data:nth-child(1) {
+  background: orange;
+}
+
+.overview-data:nth-child(2) {
+  background: #00CFE8;
+}
+
+.overview-data:nth-child(3) {
+  background: #1B2850;
+}
+
+.overview-data:nth-child(4) {
+  background: #28C76F;
+}

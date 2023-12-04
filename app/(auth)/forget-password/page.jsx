@@ -63,10 +63,10 @@ const page = () => {
                 <div className="login_form w-full md:w-[40%] lg:w-[40%]">
                     <div className="px-5 lg:px-12 py-12">
                         <div className="login-box mb-5">
-                            <div className='font-bold text-slate-800 uppercase flex items-center gap-2'>
+                            <Link href='/home' className='font-bold text-slate-800 uppercase flex items-center gap-2'>
                                 <BiSolidShoppingBags className='text-yellow-500 text-7xl' />
                                 <span className='text-2xl font-bold'>tenda pos</span>
-                            </div>
+                            </Link>
                         </div>
                         <div className="sign-title my-5">
                             <h1 className='text-2xl font-semibold text-slate-800'>Forgot password?</h1>
