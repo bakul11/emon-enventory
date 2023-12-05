@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import useActiveUser from '@/hook/useActiveUser';
 import { PropagateLoader } from 'react-spinners';
-import ProductCart from '../products/(site)/ProductCart';
+import SuplierCart from './(site)/SuplierCart';
+
 
 const page = () => {
     const [supplier, setSupplier] = useState([]);
@@ -17,23 +18,16 @@ const page = () => {
 
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`/api/supplier/getUserBaseSupplier/${userId}`)
-                console.log('data..', data);
+        fetch(`/api/supplier/getUserBaseSupplier/${userId}`)
+            .then(res => res.json())
+            .then(data => {
                 setSupplier(data)
-            } catch (error) {
-                console.log("error");
-            } finally {
                 setLoading(false)
-            }
-        }
-
-        fetchProduct()
+            })
     }, [userId, supplier])
 
 
-    console.log('product..', supplier);
+
 
 
     return (
@@ -92,20 +86,21 @@ const page = () => {
                                             <thead>
                                                 <tr className='text-[14px] text-left text-slate-700 font-[100] capitalize'>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>User Name</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Photo</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>email</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>phone</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>city</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>state</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>create on</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>address</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>status</th>
+
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    supplier?.filter((item) => item.userName.toLowerCase().includes(search)).map((product, index) => <ProductCart product={product} index={index} />)
+                                                    supplier?.filter((item) => item.userName.toLowerCase().includes(search)).map((supplier, index) => <SuplierCart supplier={supplier} index={index} />)
 
                                                 }
 

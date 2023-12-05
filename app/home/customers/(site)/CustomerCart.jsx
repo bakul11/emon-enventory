@@ -7,8 +7,8 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 
-const SuplierCart = ({ supplier, index }) => {
-    const { userName, address, email, _id, mobile, city, state, profile, createDate } = supplier;
+const CustomerCart = ({ customer, index }) => {
+    const { userName, address, email, _id, mobile } = customer;
 
     const handleRemoveProduct = async (id) => {
         const confirmRemove = window.confirm('Do you want delete this supplier?');
@@ -62,4 +62,4 @@ const SuplierCart = ({ supplier, index }) => {
     );
 };
 
-export default SuplierCart;
+export default CustomerCart;

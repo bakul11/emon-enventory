@@ -17,7 +17,7 @@ const productList = [
     },
     {
         title: 'create product',
-        path: 'create-product',
+        path: 'add-product',
         icon: <BsPlusSquare />
     },
     {
@@ -49,7 +49,7 @@ const ProductMenu = ({ openSlidebar }) => {
                         const newPath = `/home/${path}`;
                         return (
                             <div className="product">
-                                <Link href={`/home/${path} `} key={index} className={`block my-2 px-2 capitalize rounded-md py-2  text-[16px] ${pathname === newPath ? "bg-blue-400 text-white" : 'text-[#aeb1b6]'} `}>
+                                <Link href={`/home/${path} `} key={index} className={`block my-2 px-2 capitalize rounded-md py-2  text-[15px] ${pathname === newPath ? "bg-blue-400 text-white" : 'text-[#aeb1b6]'} `}>
                                     <div className="flex items-center gap-2">
                                         <span className='text-xl'>  {icon}</span>
                                         <span className={`${openSlidebar ? 'hidden' : 'block'}`}> {title}</span>
