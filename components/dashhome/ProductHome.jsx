@@ -51,7 +51,7 @@ const ProductHome = () => {
                                 </div>
                                 :
                                 <div className='show-product '>
-                                    <h2 className='text-slate-700 text-[18px] font-semibold my-3'>Top List Products</h2>
+                                    <h2 className='text-slate-600 text-[17px] font-semibold my-3'>Top List Products</h2>
 
                                     {/* show product in table  */}
                                     <div className="overflow-auto lg:overflow-hidden">
