@@ -2,25 +2,31 @@ import mongoose from "mongoose"
 
 const customerSchema = new mongoose.Schema({
     userId: {
-        type:String
+        type: String
     },
     userName: {
-        type:String
+        type: String
     },
     email: {
-        type:String
+        type: String
     },
     mobile: {
-        type:Number
+        type: Number
     },
     address: {
-        type:String
+        type: String
     },
     dueTk: {
-        type:Number
+        type: Number,
+        default: ''
     },
     receivedTk: {
-        type:Number
+        type: Number,
+        default: ''
+    },
+    payableTk: {
+        type: Number,
+        default: ''
     }
 })
 

@@ -10,17 +10,17 @@ import { FaAppStore } from "react-icons/fa";
 const productList = [
     {
         title: 'Purchases',
-        path: 'user',
+        path: 'purchases',
         icon: <RiUserAddLine />
     },
     {
-        title: 'Purchase Return',
-        path: 'customers',
+        title: 'Damage ',
+        path: 'damage',
         icon: <LuUsers2 />
     },
     {
-        title: 'Purchase Order',
-        path: 'supplier',
+        title: 'POS',
+        path: 'pos',
         icon: <RiUserVoiceLine />
     },
     {
@@ -34,7 +34,7 @@ const ParchaseMenu = ({ openSlidebar }) => {
     const pathname = usePathname();
     return (
         <div className="product-menu my-5">
-            <p className={`text-[#76839c] text-[15px] ${openSlidebar ? 'hidden' : 'block'}`}>Purchases</p>
+            <p className={`text-[#76839c] text-[15px] ${openSlidebar ? 'hidden' : 'block'}`}>Sales & Purchases</p>
             <div className="product-list ml-2">
                 {
                     productList?.map((item, index) => {

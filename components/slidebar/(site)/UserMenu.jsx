@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { LuUsers2 } from "react-icons/lu";
 import { RiUserAddLine, RiUserVoiceLine } from "react-icons/ri";
-import { FaAppStore } from "react-icons/fa";
+
 
 //product list
 const productList = [
@@ -22,11 +22,6 @@ const productList = [
         title: 'Suppliers',
         path: 'supplier',
         icon: <RiUserVoiceLine />
-    },
-    {
-        title: 'Stores',
-        path: 'store',
-        icon: <FaAppStore />
     }
 ]
 

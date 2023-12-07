@@ -92,7 +92,8 @@ const page = () => {
                                             <thead>
                                                 <tr className='text-[14px] text-left text-slate-700 font-[100] capitalize'>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>product Name</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Photo</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>SKU</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>category</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>sub category</th>

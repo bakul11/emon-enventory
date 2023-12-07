@@ -36,15 +36,9 @@ const ProductCart = ({ product, index }) => {
         <tr className='text-[14px] text-[#637381] font-[500] capitalize' key={index}>
             <td className='border-blue-100 border-b-[1px] p-2'>{index + 1}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>
-                <div className="flex items-center gap-1">
-                    <div className="pd-title">
-                        <Image src={productPhoto} alt='photo' height={100} width={100} className='object-cover rounded-sm h-[40px] w-[40px]' />
-                    </div>
-                    <div className="pd-title">
-                        {productName}
-                    </div>
-                </div>
+                <Image src={productPhoto} alt='photo' height={100} width={100} className='object-cover rounded-sm h-[40px] w-[40px]' />
             </td>
+            <td className='border-blue-100 border-b-[1px] p-2'> {productName}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{sku}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{category}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{subCategory}</td>

@@ -3,8 +3,9 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 import useActiveUser from '@/hook/useActiveUser';
-import { PropagateLoader } from 'react-spinners';
 import CustomerCart from './(site)/CustomerCart';
+import LoaddingAnimation from '@/components/animation/LoaddingAnimation';
+
 
 
 
@@ -35,13 +36,7 @@ const page = () => {
         <div className="product">
             {
                 loading ?
-                    <div className="loadding grid place-items-center">
-                        <h2 className='text-slate-600 mb-2 text-[19px] font-medium'>Loading please wait...</h2>
-                        <PropagateLoader
-                            color="#f1c40f"
-                            size={25}
-                        />
-                    </div>
+                    <LoaddingAnimation />
                     :
                     <div className="product">
                         {
@@ -49,7 +44,7 @@ const page = () => {
                                 <div className="product-empty grid place-items-center my-12">
                                     <h2 className='text-slate-800 text-[19px] font-semibold'>Customer List is Empty</h2>
                                     <p className='text-gray-500 text-[15px] mb-2'>Please add customer</p>
-                                    <Link href='/home/customer/add-customer' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
+                                    <Link href='/home/customers/add-customer' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
                                         <div className="flex items-center gap-1">
                                             <FaPlus />
                                             add new customer
@@ -64,7 +59,7 @@ const page = () => {
                                             <p className='text-gray-500 text-[15px]'>Manage your Customer</p>
                                         </div>
                                         <div className="product-btn">
-                                            <Link href='/home/customer/add-customer' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
+                                            <Link href='/home/customers/add-customer' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
                                                 <div className="flex items-center gap-1">
                                                     <FaPlus />
                                                     add new customer
@@ -89,17 +84,17 @@ const page = () => {
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>email</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>phone</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>city</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>state</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>mobile</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>address</th>
-
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Receivable</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Payable</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>due</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    customers?.filter((item) => item.userName.toLowerCase().includes(search)).map((customer, index) => <SuplierCart customer={customer} index={index} />)
+                                                    customers?.filter((item) => item.userName.toLowerCase().includes(search)).map((customer, index) => <CustomerCart customer={customer} index={index} />)
 
                                                 }
 

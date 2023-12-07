@@ -2,6 +2,8 @@
 import Toast from '@/components/toast/Toast'
 import './globals.css'
 import { useEffect, useState } from 'react'
+import logo from '../public/assets/others/load.gif'
+import Image from 'next/image'
 
 
 
@@ -28,8 +30,17 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <title>Inventory Management Software</title>
       <body>
-        {children}
-        <Toast />
+        {
+          loadding ?
+            <div className="loadding-image grid place-content-center  mt-24">
+              <Image src={logo} alt='loading' height={500} width={500} className='object-cover' />
+            </div>
+            :
+            <>
+              {children}
+              < Toast />
+            </>
+        }
       </body>
     </html>
   )

@@ -24,9 +24,7 @@ const Header = () => {
     const handleLogOut = () => {
         Cookies.remove('user');
         toast.success('Logout successfully done');
-        setTimeout(() => {
-            return router.push('/home')
-        }, 1000);
+        router.push('/home')
 
     }
 

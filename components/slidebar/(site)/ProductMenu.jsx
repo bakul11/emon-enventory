@@ -16,8 +16,8 @@ const productList = [
         icon: <MdProductionQuantityLimits />
     },
     {
-        title: 'create product',
-        path: 'add-product',
+        title: 'add-product',
+        path: 'create-product',
         icon: <BsPlusSquare />
     },
     {
