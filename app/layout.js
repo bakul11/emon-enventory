@@ -41,6 +41,8 @@ export default function RootLayout({ children }) {
               < Toast />
             </>
         }
+        {/* {children}
+        < Toast /> */}
       </body>
     </html>
   )

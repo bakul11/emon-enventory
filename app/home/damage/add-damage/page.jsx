@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaAngleDown, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import { ClipLoader, PropagateLoader } from 'react-spinners';
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -26,18 +26,26 @@ const page = () => {
 
 
 
-    // load Sub Category api 
-    const [customers, setCustomers] = useState([]);
+    // load product api 
+    const [product, setProduct] = useState([]);
+
+    const [item, setItem] = useState('');
+    const [search, setSearch] = useState('');
+    const [selectItem, setSelectItem] = useState('');
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(!open)
+
 
     useEffect(() => {
-        fetch(`/api/customer/getCustomer/${userId}`)
+        fetch(`/api/product/getAllProductUserBase/${userId}`)
             .then(res => res.json())
             .then(result => {
-                setCustomers(result);
+                setProduct(result);
                 setLoadding(false)
             })
 
-    }, [userId, customers])
+    }, [userId, product])
 
 
 
@@ -53,10 +61,7 @@ const page = () => {
         event.preventDefault();
 
 
-        if (mobile.length < '11') {
-            toast.error('Mobile number must be 11 digit')
-            return
-        }
+
 
         const storeData = {
             userName,
@@ -103,8 +108,10 @@ const page = () => {
 
 
 
+
     return (
         <>
+
             {
                 user?.email ?
                     <div className='add-product'>
@@ -115,18 +122,67 @@ const page = () => {
                         {/* add prouct form  */}
 
                         <form onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-x-5 gap-y-2">
+
+
+
+                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-x-5 gap-y-2">
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>product Name <span className='text-red-500'>*</span></label>
-                                    <input input id='ee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of product' onChange={(e) => setTitle(e.target.value)} required={true} />
+                                    <div className="bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md">
+                                        <div className="bg-white flex items-center gap-2 justify-between rounded-md" onClick={handleOpen}>
+                                            <span>
+                                                {
+                                                    selectItem ?
+                                                        selectItem?.length > 10 ?
+                                                            selectItem.substring(0, 25) + '...'
+                                                            :
+                                                            selectItem :
+                                                        'Select Product'
+                                                }
+                                            </span>
+                                            <FaAngleDown />
+                                        </div>
+                                        <ul className={`bg-white mt-2 max-h-60 overflow-y-auto ${open ? 'block' : 'hidden'}`}>
+                                            <div className="search flex items-center px-2 sticky top-0 bg-white">
+                                                <FaSearch />
+                                                <input type="text" placeholder='search..' value={search} className='w-full p-2 rounded-md outline-none ' onChange={(e) => setSearch(e.target.value)} />
+                                            </div>
+
+                                            <div className="menu">
+                                                {
+                                                    product?.filter(pd => pd.productName.toLowerCase().includes(search)).map((pd, index) => {
+                                                        return (
+                                                            <li
+                                                                key={index}
+                                                                className='hover:bg-blue-400 hover:text-white p-1 text-sm cursor-pointer'
+                                                                onClick={() => {
+                                                                    setSelectItem(pd.productName)
+                                                                    setOpen(false)
+                                                                }}
+                                                            >
+                                                                {pd.productName}
+                                                            </li>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+
+
+
+                                        </ul>
+                                    </div>
+
                                 </div>
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Quantity <span className='text-red-500'>*</span></label>
-                                    <input input id='ee' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='quantity' onChange={(e) => setQantity(e.target.value)} required={true}/>
+                                    <input input id='ee' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='quantity' onChange={(e) => setQantity(e.target.value)} required={true} />
                                 </div>
+
+                            </div>
+                            <div className="grid grid-cols-1 gap-x-5 gap-y-2">
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Note <span className='text-red-500'>*</span></label>
-                                    <textarea input id='ee' type='text' className='bg-white p-2 my-2  text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='what is problem' onChange={(e) => setMobile(e.target.value)} required={true} />
+                                    <textarea input id='ee' type='text' rows='5' className='bg-white p-2 my-2  text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='What is problem of product' onChange={(e) => setMobile(e.target.value)} required={true} />
                                 </div>
 
                             </div>

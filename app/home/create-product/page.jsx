@@ -9,6 +9,7 @@ import Image from 'next/image';
 import useActiveUser from '@/hook/useActiveUser';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import LoaddingAnimation from '@/components/animation/LoaddingAnimation';
 
 const page = () => {
     const [productName, setProductName] = useState('');
@@ -242,7 +243,7 @@ const page = () => {
                                         {
                                             unitData?.map((item, index) => {
                                                 return (
-                                                    <option value={item?.title} key={index} className='capitalize py-2'>
+                                                    <option value={item?.title} key={index} className=' py-2'>
                                                         {item?.title}
                                                     </option>
                                                 )
@@ -314,13 +315,7 @@ const page = () => {
 
                     </div>
                     :
-                    <div className="loadding grid place-items-center">
-                        <h2 className='text-slate-600 mb-2 text-[19px] font-medium'>Loading please wait...</h2>
-                        <PropagateLoader
-                            color="#f1c40f"
-                            size={25}
-                        />
-                    </div>
+                   <LoaddingAnimation/>
             }
 
         </>
