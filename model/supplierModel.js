@@ -3,38 +3,39 @@ import mongoose from "mongoose";
 
 const supplierSchema = new mongoose.Schema({
     userId: {
-        type: String,
-        required: true
+        type: String
     },
     userName: {
+        type: String
+    },
+    productPrice: {
         type: String,
-        required: true
+        default: 0
     },
     email: {
         type: String,
-        required: false
-    },
-    profile: {
-        type: String,
-        default: 'https://i.ibb.co/QYg7nZm/Screenshot-1.png'
+        default: "N/A"
     },
     mobile: {
-        type: String,
-        required: false
+        type: Number
     },
     address: {
         type: String,
-        required: false
+        default: "N/A"
     },
-    city: {
-        type: String,
-        required: false
+    dueTk: {
+        type: Number,
+        default: 0
     },
-    state: {
-        type: String,
-        required: false
+    receivedTk: {
+        type: Number,
+        default: 0
     },
-    createDate: {
+    oldDue: {
+        type: Number,
+        default: 0
+    },
+    time: {
         type: String,
         default: new Date().toDateString()
     }

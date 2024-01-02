@@ -3,9 +3,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import { ClipLoader, PropagateLoader } from 'react-spinners';
-import { IoCloudUploadOutline } from "react-icons/io5";
-import Image from 'next/image';
+import { ClipLoader } from 'react-spinners';
 import useActiveUser from '@/hook/useActiveUser';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -26,18 +24,6 @@ const page = () => {
 
 
 
-    // load Sub Category api 
-    const [customers, setCustomers] = useState([]);
-
-    useEffect(() => {
-        fetch(`/api/customer/getCustomer/${userId}`)
-            .then(res => res.json())
-            .then(result => {
-                setCustomers(result);
-                setLoadding(false)
-            })
-
-    }, [userId, customers])
 
 
 
@@ -79,7 +65,7 @@ const page = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+              
                 if (result.success) {
                     toast.success(result?.message)
                     router.push('/home/customers')

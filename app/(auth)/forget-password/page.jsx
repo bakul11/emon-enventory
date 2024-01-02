@@ -36,7 +36,7 @@ const page = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
+             
                 if (result?.message) {
                     setError(result?.message);
                     setLoadding(false)

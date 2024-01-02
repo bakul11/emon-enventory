@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 
 const CustomerCart = ({ customer, index }) => {
-    const { userName, address, email, _id, mobile, dueTk, receivedTk, payableTk } = customer;
+    const { userName, address, email, _id, mobile, dueTk, receivedTk, payableTk, time } = customer;
 
     const handleRemoveProduct = async (id) => {
         const confirmRemove = window.confirm('Do you want delete this customers?');
@@ -41,6 +41,7 @@ const CustomerCart = ({ customer, index }) => {
             <td className='border-blue-100 border-b-[1px] p-2'>{receivedTk} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{payableTk} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{dueTk} tk</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{time} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-3 text-xl">
                     <div className="pd_update">

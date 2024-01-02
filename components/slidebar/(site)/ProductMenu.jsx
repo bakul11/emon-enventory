@@ -6,6 +6,7 @@ import { BsPlusSquare } from "react-icons/bs";
 import { MdOutlineCategory } from "react-icons/md";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { TbBrandUnity, TbBrandShopee } from "react-icons/tb";
+import { FaMeteor } from "react-icons/fa";
 
 
 //product list
@@ -26,15 +27,20 @@ const productList = [
         icon: <MdOutlineCategory />
     },
     {
+        title: 'sub category',
+        path: 'sub-category',
+        icon: <TbBrandShopee />
+    },
+    {
         title: 'brands',
         path: 'brands',
         icon: <TbBrandUnity />
     },
     {
-        title: 'sub category',
-        path: 'sub-category',
-        icon: <TbBrandShopee />
-    }
+        title: 'unit',
+        path: 'unit',
+        icon: <FaMeteor />
+    },
 ]
 
 const ProductMenu = ({ openSlidebar }) => {

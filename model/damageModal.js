@@ -17,6 +17,9 @@ const damageSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    note: {
+        type: String
+    },
     time: {
         type: String,
         default: new Date().toDateString()

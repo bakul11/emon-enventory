@@ -19,18 +19,13 @@ const page = () => {
 
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`/api/product/getAllProductUserBase/${userId}`)
-                setProducts(data)
-            } catch (error) {
-
-            } finally {
-                setLoadding(false)
-            }
-        }
-
-        fetchProduct()
+        fetch(`/api/product/getAllProductUserBase/${userId}`)
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                setProducts(result)
+                setLoadding(false);
+            })
     }, [userId, products])
 
 
@@ -94,13 +89,12 @@ const page = () => {
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Photo</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>SKU</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>code</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>category</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>sub category</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>brand</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>price</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Quantity</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>unit</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>

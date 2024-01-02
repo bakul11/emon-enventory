@@ -20,7 +20,7 @@ const page = () => {
 
 
     useEffect(() => {
-        fetch(`/api/damage/getDamageProduct/${userId}`)
+        fetch(`/api/damage/getProduct/${userId}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data)
@@ -42,8 +42,8 @@ const page = () => {
                         {
                             product?.length === 0 ?
                                 <div className="product-empty grid place-items-center my-12">
-                                    <h2 className='text-slate-800 text-[19px] font-semibold'>Customer List is Empty</h2>
-                                    <p className='text-gray-500 text-[15px] mb-2'>Please add customer</p>
+                                    <h2 className='text-slate-800 text-[19px] font-semibold'>Damage Product List is Empty</h2>
+                                    <p className='text-gray-500 text-[15px] mb-2'>Please add damage product</p>
                                     <div className="product-btn">
                                         <Link href='/home/damage/add-damage' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
                                             <div className="flex items-center gap-1">
@@ -53,12 +53,13 @@ const page = () => {
                                         </Link>
                                     </div>
                                 </div>
+
                                 :
                                 <div className='show-product '>
                                     <div className="flex items-center justify-between flex-wrap gap-5">
                                         <div className="product-title">
-                                            <h2 className='text-slate-800 text-[19px] font-semibold'>Customer List</h2>
-                                            <p className='text-gray-500 text-[15px]'>Manage your Customer</p>
+                                            <h2 className='text-slate-800 text-[19px] font-semibold'>Damage Product List</h2>
+                                            <p className='text-gray-500 text-[15px]'>Manage your damage product</p>
                                         </div>
                                         <div className="product-btn">
                                             <Link href='/home/damage/add-damage' className='inline-block ease-in-out transition-all duration-[0.5s] hover:bg-rose-500 bg-orange-400 p-3 text-[14px] rounded-md  capitalize text-white font-medium'>
@@ -87,7 +88,8 @@ const page = () => {
                                                     <th className='border-blue-100 border-b-[1px] p-2'>photo</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>title</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>quantity</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>created on</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>note</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>date</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>

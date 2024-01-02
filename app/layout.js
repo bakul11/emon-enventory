@@ -4,6 +4,8 @@ import './globals.css'
 import { useEffect, useState } from 'react'
 import logo from '../public/assets/others/load.gif'
 import Image from 'next/image'
+import { Provider } from 'react-redux'
+import { store } from '@/redux/store/store'
 
 
 
@@ -30,7 +32,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <title>Inventory Management Software</title>
       <body>
-        {
+        {/* {
           loadding ?
             <div className="loadding-image grid place-content-center  mt-24">
               <Image src={logo} alt='loading' height={500} width={500} className='object-cover' />
@@ -40,9 +42,12 @@ export default function RootLayout({ children }) {
               {children}
               < Toast />
             </>
-        }
-        {/* {children}
-        < Toast /> */}
+        } */}
+        <Provider store={store}>
+          {children}
+          < Toast />
+        </Provider>
+
       </body>
     </html>
   )

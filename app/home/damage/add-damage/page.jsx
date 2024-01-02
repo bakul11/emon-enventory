@@ -3,23 +3,15 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { FaAngleDown, FaArrowRight, FaSearch } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import { ClipLoader, PropagateLoader } from 'react-spinners';
-import { IoCloudUploadOutline } from "react-icons/io5";
-import Image from 'next/image';
+import { ClipLoader } from 'react-spinners';
 import useActiveUser from '@/hook/useActiveUser';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import LoaddingAnimation from '@/components/animation/LoaddingAnimation';
+import Image from 'next/image';
 
 const page = () => {
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [mobile, setMobile] = useState('');
-    const [address, setAddress] = useState('');
-    const [receivedTk, setReceivedTk] = useState('');
-    const [payableTk, setPayableTk] = useState('');
-    const [dueTk, setDueTk] = useState('');
-    const [loadding, setLoadding] = useState(false);
+    const [loadding, setLoadding] = useState(true);
     const [user] = useActiveUser();
     const userId = user?._id;
     const router = useRouter();
@@ -28,12 +20,14 @@ const page = () => {
 
     // load product api 
     const [product, setProduct] = useState([]);
-
-    const [item, setItem] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [qty, setQty] = useState('');
+    const [photo, setPhoto] = useState('');
     const [search, setSearch] = useState('');
     const [selectItem, setSelectItem] = useState('');
+    const [productId, setProductId] = useState('');
+    const [note, setNote] = useState('');
     const [open, setOpen] = useState(false);
-
     const handleOpen = () => setOpen(!open)
 
 
@@ -49,12 +43,6 @@ const page = () => {
 
 
 
-
-
-
-
-
-
     //handle submit form 
     const [submitLoadding, setSubmitLoadding] = useState(false);
     const handleSubmit = async (event) => {
@@ -64,18 +52,16 @@ const page = () => {
 
 
         const storeData = {
-            userName,
-            email,
-            mobile,
-            address,
-            receivedTk,
-            payableTk,
-            dueTk,
-            userId
+            title: selectItem,
+            userId,
+            quantity,
+            productId,
+            photo,
+            note
         }
 
         setSubmitLoadding(true);
-        fetch(`/api/customer/addCustomer`, {
+        fetch(`/api/damage/postDamagePd`, {
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
@@ -84,18 +70,24 @@ const page = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+                console.log("damage result", result);
+
                 if (result.success) {
                     toast.success(result?.message)
-                    router.push('/home/customers')
+                    router.push('/home/damage')
                     setSubmitLoadding(false);
 
-                } else {
+                } else if (result.stockOut === 500) {
+                    toast.error(result?.message)
+                    setSubmitLoadding(false);
+                }
+                else {
                     if (result?.error) {
                         toast.error(result?.message)
                         setSubmitLoadding(false);
                     }
                 }
+
             })
 
     }
@@ -123,66 +115,78 @@ const page = () => {
 
                         <form onSubmit={handleSubmit}>
 
-
-
                             <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-x-5 gap-y-2">
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>product Name <span className='text-red-500'>*</span></label>
                                     <div className="bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md">
                                         <div className="bg-white flex items-center gap-2 justify-between rounded-md" onClick={handleOpen}>
-                                            <span>
+                                            <span className='capitalize cursor-pointer'>
                                                 {
                                                     selectItem ?
-                                                        selectItem?.length > 10 ?
-                                                            selectItem.substring(0, 25) + '...'
+                                                        selectItem?.length > 100 ?
+                                                            selectItem.substring(0, 150) + '...'
                                                             :
-                                                            selectItem :
+                                                            `${selectItem} - ${qty} quantity` :
                                                         'Select Product'
                                                 }
                                             </span>
                                             <FaAngleDown />
                                         </div>
                                         <ul className={`bg-white mt-2 max-h-60 overflow-y-auto ${open ? 'block' : 'hidden'}`}>
-                                            <div className="search flex items-center px-2 sticky top-0 bg-white">
+                                            <div className="search flex items-center px-2 sticky top-0 bg-white border border-blue-100 rounded">
                                                 <FaSearch />
                                                 <input type="text" placeholder='search..' value={search} className='w-full p-2 rounded-md outline-none ' onChange={(e) => setSearch(e.target.value)} />
                                             </div>
 
                                             <div className="menu">
                                                 {
-                                                    product?.filter(pd => pd.productName.toLowerCase().includes(search)).map((pd, index) => {
-                                                        return (
-                                                            <li
-                                                                key={index}
-                                                                className='hover:bg-blue-400 hover:text-white p-1 text-sm cursor-pointer'
-                                                                onClick={() => {
-                                                                    setSelectItem(pd.productName)
-                                                                    setOpen(false)
-                                                                }}
-                                                            >
-                                                                {pd.productName}
-                                                            </li>
-                                                        )
-                                                    })
+                                                    loadding ? <h3 className='text-slate-700 py-2'>Loading please wait...</h3>
+                                                        :
+                                                        <>
+                                                            {
+                                                                product?.filter(pd => pd.productName.toLowerCase().includes(search)).map((pd, index) => {
+                                                                    const { productName, productPhoto, _id, quantity: qty } = pd;
+
+                                                                    return (
+                                                                        <li
+                                                                            key={index}
+                                                                            className='hover:bg-blue-400 hover:text-white p-1 text-sm cursor-pointer'
+                                                                            onClick={() => {
+                                                                                setSelectItem(productName)
+                                                                                setPhoto(productPhoto)
+                                                                                setProductId(_id)
+                                                                                setOpen(false)
+                                                                                setQty(qty)
+                                                                            }}
+                                                                        >
+
+                                                                            <div className="flex items-center gap-2">
+                                                                                <Image src={productPhoto} alt='photo' height={100} width={100} className='object-cover rounded-sm h-[30px] w-[30px]' />
+                                                                                {productName} -  <span> {qty} quantity</span>
+                                                                            </div>
+
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </>
                                                 }
+
                                             </div>
-
-
-
                                         </ul>
                                     </div>
 
                                 </div>
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Quantity <span className='text-red-500'>*</span></label>
-                                    <input input id='ee' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='quantity' onChange={(e) => setQantity(e.target.value)} required={true} />
+                                    <input input id='ee' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='quantity' onChange={(e) => setQuantity(e.target.value)} required={true} />
                                 </div>
 
                             </div>
                             <div className="grid grid-cols-1 gap-x-5 gap-y-2">
                                 <div className="form-item">
                                     <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Note <span className='text-red-500'>*</span></label>
-                                    <textarea input id='ee' type='text' rows='5' className='bg-white p-2 my-2  text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='What is problem of product' onChange={(e) => setMobile(e.target.value)} required={true} />
+                                    <textarea input id='ee' type='text' rows='5' className='bg-white p-2 my-2  text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='What is problem of product' onChange={(e) => setNote(e.target.value)} required={true} />
                                 </div>
 
                             </div>
@@ -201,11 +205,11 @@ const page = () => {
                                         <div className="flex items-center gap-2 flex-wrap">
                                             <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
                                                 <div className="flex items-center gap-1">
-                                                    Submit
+                                                    Add Damages
                                                     <FaArrowRight />
                                                 </div>
                                             </button>
-                                            <Link href='/home/customers' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
+                                            <Link href='/home/customers' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${submitLoadding ? 'hidden' : 'block'}`}>
                                                 <div className="flex items-center gap-1">
                                                     <MdClose />
                                                     cancle

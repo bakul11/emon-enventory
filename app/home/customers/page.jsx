@@ -89,6 +89,7 @@ const page = () => {
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Receivable</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>Payable</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>due</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>date</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
                                             </thead>

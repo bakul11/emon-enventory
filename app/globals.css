@@ -41,3 +41,20 @@ h3 {
 .overview-data:nth-child(4) {
   background: #28C76F;
 }
+
+
+
+/* custom modal  */
+
+.customModalData {
+  background: #b2dbbf;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.paymentModal1 {
+  background: #b2dbbf;
+  width: 30%;
+  border-radius: 10px;
+}

@@ -7,26 +7,36 @@ const customerSchema = new mongoose.Schema({
     userName: {
         type: String
     },
+    productPrice: {
+        type: String,
+        default: 0
+    },
     email: {
-        type: String
+        type: String,
+        default: "N/A"
     },
     mobile: {
         type: Number
     },
     address: {
-        type: String
+        type: String,
+        default: "N/A"
     },
     dueTk: {
         type: Number,
-        default: ''
+        default: 0
     },
     receivedTk: {
         type: Number,
-        default: ''
+        default: 0
     },
-    payableTk: {
+    oldDue: {
         type: Number,
-        default: ''
+        default: 0
+    },
+    time: {
+        type: String,
+        default: new Date().toDateString()
     }
 })
 

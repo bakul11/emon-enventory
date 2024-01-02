@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 
 const SuplierCart = ({ supplier, index }) => {
-    const { userName, address, email, _id, mobile, city, state, profile, createDate } = supplier;
+    const { userName, address, email, _id, mobile, dueTk, receivedTk, productPrice, time } = supplier;
 
     const handleRemoveProduct = async (id) => {
         const confirmRemove = window.confirm('Do you want delete this supplier?');
@@ -34,17 +34,14 @@ const SuplierCart = ({ supplier, index }) => {
     return (
         <tr className='text-[14px] text-[#637381] font-medium ' key={index}>
             <td className='border-blue-100 border-b-[1px] p-2'>{index + 1}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>
-                <Image src={profile} alt='photo' height={80} width={80} className='object-cover rounded-md h-[40px] w-[40px]' />
-            </td>
-            <td className='border-blue-100 border-b-[1px] p-2'>  {userName}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'> {userName}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{email}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{mobile}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{city}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{state}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{createDate}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{address}</td>
-
+            <td className='border-blue-100 border-b-[1px] p-2'>{productPrice} tk</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{receivedTk} tk</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{dueTk} tk</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{time}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-3 text-xl">
                     <div className="pd_update">

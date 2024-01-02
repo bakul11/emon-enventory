@@ -8,7 +8,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 const ProductCart = ({ product, index }) => {
-    const { productName, productPhoto, category, subCategory, price, quantity, unit, brand, sku, _id } = product;
+    const { productName, productPhoto, category, subCategory, price, quantity, unit, brand, productCode, _id } = product;
 
     const handleRemoveProduct = async (id) => {
         const confirmRemove = window.confirm('Do you want delete this item?');
@@ -39,13 +39,12 @@ const ProductCart = ({ product, index }) => {
                 <Image src={productPhoto} alt='photo' height={100} width={100} className='object-cover rounded-sm h-[40px] w-[40px]' />
             </td>
             <td className='border-blue-100 border-b-[1px] p-2'> {productName}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{sku}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{productCode}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{category}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{subCategory}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{brand}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{price}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{quantity}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{unit}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{quantity} {unit}</td>
             <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-4 text-xl">
                     <div className="pd_view">

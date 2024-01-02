@@ -24,7 +24,7 @@ export const POST = async (req) => {
             })
         }
         //jwt token 
-        const token = jwt.sign({ email: user?.email, id: user?._id }, process.env.NEXT_PUBLIC_JWT_TOKEN, { expiresIn: '2d' });
+        const token = jwt.sign({ email: user?.email, id: user?._id }, process.env.NEXT_PUBLIC_JWT_TOKEN, { expiresIn: '10d' });
 
         //success 
         return NextResponse.json({

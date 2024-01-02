@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
-import { ClipLoader, PropagateLoader } from 'react-spinners';
+import { ClipLoader } from 'react-spinners';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import Image from 'next/image';
 import useActiveUser from '@/hook/useActiveUser';
@@ -11,14 +11,12 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import LoaddingAnimation from '@/components/animation/LoaddingAnimation';
 
-const page = () => {
+const ProductModalData = () => {
     const [productName, setProductName] = useState('');
     const [category, setCategory] = useState('disabled');
     const [subCategory, setSubCategory] = useState('disabled');
     const [price, setPrice] = useState('');
     const [unit, setUnit] = useState('disabled');
-    const [quantity, setQuantity] = useState('');
-    const [sku, setSku] = useState('');
     const [brand, setBrand] = useState('disabled');
     const [productPhoto, setProductPhoto] = useState('');
     const [review, setReview] = useState('');
@@ -27,15 +25,26 @@ const page = () => {
     const userId = user?._id;
     const router = useRouter();
 
+    const [pdLoadding, setPdLoadding] = useState(true);
 
-
+    //auto genarate product code 
+    const [generatedCode, setGeneratedCode] = useState('');
+    const generateCode = () => {
+        const code = Math.floor(10000 + Math.random() * 90000);
+        setGeneratedCode(code.toString());
+    };
 
     // load  Category api 
     const [categoryData, setCategoryData] = useState([]);
     useEffect(() => {
         fetch(`/api/category/getCategoryUserBase/${userId}`)
             .then(res => res.json())
-            .then(result => setCategoryData(result))
+            .then(result => {
+                setCategoryData(result);
+                setPdLoadding(false)
+            }).catch(err => {
+                setPdLoadding(false)
+            })
 
     }, [userId, categoryData])
 
@@ -44,7 +53,13 @@ const page = () => {
     useEffect(() => {
         fetch(`/api/sub-category/getCategory/${userId}`)
             .then(res => res.json())
-            .then(result => setSubCategoryData(result))
+            .then(result => {
+                setSubCategoryData(result);
+                setPdLoadding(false)
+            }).catch(err => {
+                setPdLoadding(false)
+            })
+
 
     }, [userId, subCategoryData])
 
@@ -54,9 +69,29 @@ const page = () => {
     useEffect(() => {
         fetch(`/api/brand/getBrandUserBase/${userId}`)
             .then(res => res.json())
-            .then(result => setBrandData(result))
+            .then(result => {
+                setBrandData(result);
+                setPdLoadding(false)
+            }).catch(err => {
+                setPdLoadding(false)
+            })
 
     }, [userId, brandData])
+
+
+    //unit data api 
+    const [unitData, setUnitData] = useState([]);
+
+    useEffect(() => {
+        fetch(`/api/unit/getUnit/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                setUnitData(data)
+                setPdLoadding(false)
+            }).catch(err => {
+                setPdLoadding(false)
+            })
+    }, [userId, unitData])
 
 
 
@@ -66,6 +101,7 @@ const page = () => {
         setProductPhoto(event.target.files[0])
         setReview(URL.createObjectURL(event.target.files[0]));
     }
+
 
 
     //handle submit form 
@@ -95,16 +131,16 @@ const page = () => {
                     const userId = user?._id;
                     const storeData = {
                         productName,
+                        productCode: generatedCode,
                         price,
-                        quantity,
                         brand,
                         unit,
-                        sku,
                         category,
                         subCategory,
                         productPhoto: imageUrl,
                         userId
                     }
+                    console.log(storeData);
                     setLoadding(true);
                     fetch(`/api/product/postProduct`, {
                         method: 'POST',
@@ -115,6 +151,7 @@ const page = () => {
                     })
                         .then(res => res.json())
                         .then(result => {
+                            console.log(result);
                             if (result.success) {
                                 toast.success(result?.message)
                                 router.push('/home/products')
@@ -138,30 +175,7 @@ const page = () => {
 
     }
 
-    // unit data 
-    const unitData = [
-        {
-            title: 'Kg'
-        },
-        {
-            title: 'Pices'
-        },
-        {
-            title: 'Litre'
-        },
-        {
-            title: 'Metre'
-        },
-        {
-            title: 'Dozon'
-        },
-        {
-            title: 'gm'
-        },
-        {
-            title: 'ml'
-        }
-    ]
+
 
 
 
@@ -178,12 +192,12 @@ const page = () => {
                         </div>
                         {/* add prouct form  */}
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} onClick={generateCode}>
 
-                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-x-5 gap-y-2">
+                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-x-5 gap-y-2">
 
                                 <div className="form-item">
-                                    <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Product Name</label>
+                                    <label htmlFor="ee" className='text-slate-500 my-1 font-medium text-[14px]'>Product Name </label>
                                     <input input id='ee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Name of Product' onChange={(e) => setProductName(e.target.value)} required={true} />
                                 </div>
 
@@ -218,7 +232,11 @@ const page = () => {
                                     </select>
                                 </div>
 
-                                <div className="form-item">
+
+                            </div>
+
+                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-x-5 gap-y-2">
+                                <div className="form-item lg:my-5">
                                     <label htmlFor="eeee" className='text-slate-500 my-1 font-medium text-[14px]'>Brand Name</label>
                                     <select id='eeee' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setBrand(e.target.value)}>
                                         <option selected disabled value={brand} defaultValue={"disabled"} className='capitalize'>Select Brand</option>
@@ -233,9 +251,7 @@ const page = () => {
                                         }
                                     </select>
                                 </div>
-                            </div>
 
-                            <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-x-5 gap-y-2">
                                 <div className="form-item lg:my-5">
                                     <label htmlFor="dddd" className='text-slate-500 my-1 font-medium text-[14px]'>Unit</label>
                                     <select id='dddd' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' onChange={(e) => setUnit(e.target.value)}>
@@ -251,18 +267,12 @@ const page = () => {
                                         }
                                     </select>
                                 </div>
-                                <div className="form-item lg:my-5">
-                                    <label htmlFor="bbb" className='text-slate-500 my-1 font-medium text-[14px]'>SKU</label>
-                                    <input input id='bbb' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='SKU' onChange={(e) => setSku(e.target.value)} required={true} />
-                                </div>
+
                                 <div className="form-item lg:my-5">
                                     <label htmlFor="ttt" className='text-slate-500 my-1 font-medium text-[14px]'>Price</label>
                                     <input input id='ttt' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Price' onChange={(e) => setPrice(e.target.value)} required={true} />
                                 </div>
-                                <div className="form-item lg:my-5">
-                                    <label htmlFor="www" className='text-slate-500 my-1 font-medium text-[14px]'>Quantity</label>
-                                    <input input id='www' type='number' className='bg-white p-2 my-2 text-[14px] outline-none w-full ring-1 ring-blue-200 focus:ring-2 focus:ring-blue-400 rounded-md ' placeholder='Quantity' onChange={(e) => setQuantity(e.target.value)} required={true} />
-                                </div>
+
                             </div>
                             <div className="form-item my-5">
                                 <label htmlFor="pppp" className='text-slate-500 my-1 font-medium text-[14px]'>Product Image</label>
@@ -297,25 +307,26 @@ const page = () => {
                                         <div className="flex items-center gap-2 flex-wrap">
                                             <button className='bg-orange-400 text-white rounded-md p-3 text-[14px] capitalize font-medium'>
                                                 <div className="flex items-center gap-1">
-                                                    Submit
+                                                    add product
                                                     <FaArrowRight />
                                                 </div>
                                             </button>
-                                            <Link href='/home/products' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
+                                            <Link href='/home/customers' className={`bg-rose-400 text-white rounded-md p-3 text-[14px] capitalize font-medium ${loadding ? 'hidden' : 'block'}`}>
                                                 <div className="flex items-center gap-1">
                                                     <MdClose />
                                                     cancle
                                                 </div>
                                             </Link>
                                         </div>
-
                                 }
                             </div>
                         </form>
 
                     </div>
                     :
-                   <LoaddingAnimation/>
+                    <div className="py-5">
+                        <LoaddingAnimation />
+                    </div>
             }
 
         </>
@@ -323,4 +334,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default ProductModalData;

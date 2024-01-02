@@ -5,6 +5,8 @@ import React from 'react';
 import { LuUsers2 } from "react-icons/lu";
 import { RiUserAddLine, RiUserVoiceLine } from "react-icons/ri";
 import { FaAppStore } from "react-icons/fa";
+import { MdPayments } from "react-icons/md";
+
 
 //product list
 const productList = [
@@ -24,9 +26,14 @@ const productList = [
         icon: <RiUserVoiceLine />
     },
     {
-        title: 'Stores',
-        path: 'store',
+        title: 'Stock',
+        path: 'stock',
         icon: <FaAppStore />
+    },
+    {
+        title: 'make payments',
+        path: 'payment',
+        icon: <MdPayments />
     }
 ]
 

@@ -8,8 +8,7 @@ export const PUT = async (req, { params }) => {
         const body = await req.json();
         const id = params.id;
         const updateSupplier = await supplierDB.findById(id);
-        console.log("updateSupplier", updateSupplier);
-
+       
         if (!updateSupplier) {
             return NextResponse.json({
                 message: 'Supplier not found!'

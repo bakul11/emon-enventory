@@ -18,7 +18,7 @@ export const POST = async (req) => {
     } catch (error) {
         return NextResponse.json({
             message: 'Supplier add fail!',
-            error:error?.message
+            error: error?.message
         })
     }
 }

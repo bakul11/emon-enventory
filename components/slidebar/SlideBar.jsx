@@ -37,9 +37,6 @@ const SlideBar = () => {
 
             {/* Backup data  */}
             <BackupData openSlidebar={openSlidebar} />
-
-
-
         </div>
     );
 };
