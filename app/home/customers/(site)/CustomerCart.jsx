@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 
 const CustomerCart = ({ customer, index }) => {
-    const { userName, address, email, _id, mobile, dueTk, receivedTk, payableTk, time } = customer;
+    const { userName, address, email, _id, mobile, dueTk, receivedTk, payableTk, time, oldDue, productPrice } = customer;
 
     const handleRemoveProduct = async (id) => {
         const confirmRemove = window.confirm('Do you want delete this customers?');
@@ -34,13 +34,17 @@ const CustomerCart = ({ customer, index }) => {
     return (
         <tr className='text-[14px] text-[#637381] font-medium ' key={index}>
             <td className='border-blue-100 border-b-[1px] p-2'>{index + 1}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'> {userName}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{email}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{mobile}</td>
-            <td className='border-blue-100 border-b-[1px] p-2'>{address}</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>
+                <p className='text-blue-400 text-[16px] font-medium capitalize'>Name: <span>{userName}</span></p>
+                <p>Email: <span>{email}</span></p>
+                <p>Mobile: <span>0{mobile}</span></p>
+                <p>Address: <span>{address}</span></p>
+            </td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{productPrice} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{receivedTk} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{payableTk} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{dueTk} tk</td>
+            <td className='border-blue-100 border-b-[1px] p-2'>{oldDue} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>{time} tk</td>
             <td className='border-blue-100 border-b-[1px] p-2'>
                 <div className="flex items-center gap-3 text-xl">

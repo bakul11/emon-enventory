@@ -1,11 +1,12 @@
 "use client"
 import Image from 'next/image';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { BiSolidShoppingBags } from 'react-icons/bi';
 import { LuPrinter } from "react-icons/lu";
 import { IoReturnUpBackOutline } from "react-icons/io5";
 import Link from 'next/link';
 import { useReactToPrint } from 'react-to-print';
+import useActiveUser from '@/hook/useActiveUser';
 
 
 const page = () => {
@@ -26,6 +27,32 @@ const page = () => {
         return { totalPrice }
     }
 
+    //User Details 
+    const [user] = useActiveUser();
+    const activeUserId = user?._id;
+
+
+    // Get Logo api 
+    const [logo, setLogo] = useState({});
+    useEffect(() => {
+        fetch(`/api/logo/getLogoUserBase/${activeUserId}`)
+            .then(res => res.json())
+            .then(data => setLogo(data))
+    }, [logo, activeUserId])
+
+
+
+    // Get Logo api 
+    const [invoice, setInvoice] = useState({});
+
+    useEffect(() => {
+        fetch(`/api/invoice/getUserBaseInvoice/${activeUserId}`)
+            .then(res => res.json())
+            .then(data => setInvoice(data))
+    }, [invoice, activeUserId])
+
+
+
 
     // handle print product 
     const componentRef = useRef();
@@ -38,15 +65,34 @@ const page = () => {
             <div className="print" ref={componentRef}>
                 <div className='flex justify-between gap-2'>
                     <div className="logo">
-                        <div className='font-bold text-slate-800 uppercase flex items-center gap-2'>
-                            <BiSolidShoppingBags className='text-yellow-500 text-5xl' />
-                            <span className='text-2xl font-bold'>tenda pos</span>
-                        </div>
+                        {
+                            logo?.logo ?
+
+                                <Link href='/home' className='cursor-pointer'>
+                                    <Image src={logo?.logo} alt='Company Logo' className='object-fill h-[50px] w-auto' height={30} width={200} />
+                                </Link> :
+                                <Link href='/home' className='font-bold text-slate-800 uppercase flex items-center gap-2'>
+                                    <BiSolidShoppingBags className='text-yellow-500 text-4xl' />
+                                    <span className='text-xl font-bold'>Company Logo</span>
+                                </Link>
+                        }
                     </div>
-                    <div className="address space-y-2 text-slate-800 text-[15px]">
-                        <p><span className='text-gray-600 capitalize'>address</span> : dhaka mirpur 10,rk road</p>
-                        <p><span className='text-gray-600 capitalize'>mobile</span> : +8801791860562</p>
-                        <p><span className='text-gray-600 capitalize'>email</span> : tendapos@gmail.com</p>
+                    <div className="address">
+                        {
+                            invoice?.email ?
+                                <div className="address space-y-2 text-slate-800 text-[15px]">
+                                    <p><span className='text-gray-600 capitalize'>address</span> : {invoice?.address}</p>
+                                    <p><span className='text-gray-600 capitalize'>mobile</span> : {invoice?.mobile}</p>
+                                    <p><span className='text-gray-600 capitalize'>email</span> : {invoice?.email}</p>
+                                </div>
+                                :
+                                <div className="address space-y-2 text-slate-800 text-[15px]">
+                                    <p><span className='text-gray-600 capitalize'>address</span> : dhaka mirpur 10,rk road</p>
+                                    <p><span className='text-gray-600 capitalize'>mobile</span> : +8801791860562</p>
+                                    <p><span className='text-gray-600 capitalize'>email</span> : tendapos@gmail.com</p>
+                                </div>
+                        }
+
                     </div>
                 </div>
                 <div className="invoice">

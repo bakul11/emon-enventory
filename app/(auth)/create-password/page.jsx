@@ -54,9 +54,7 @@ const page = () => {
                     setLoadding(false)
                 }
                 if (result?.success) {
-                    setTimeout(() => {
-                        return router.push('/home')
-                    }, 1000);
+                    router.push('/home')
                     toast.success(result?.message);
                     setLoadding(false);
                     reset()

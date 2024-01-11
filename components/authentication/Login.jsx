@@ -112,9 +112,9 @@ const Login = () => {
                                 {
                                     loadding ?
 
-                                        <button className='flex items-center justify-center gap-1 w-full capitalize text-white my-3 font-semibold py-2 rounded-md bg-rose-500' disabled>
+                                        <button className='flex items-center justify-center gap-1 w-full capitalize text-white my-3 font-medium py-2 rounded-md bg-rose-500' disabled>
                                             <div className="flex items-center gap-2">
-                                                <span>Processing</span>
+                                                <span>Logging please wait..</span>
                                                 <BeatLoader
                                                     color="#FFFFFF"
                                                     speedMultiplier={2}

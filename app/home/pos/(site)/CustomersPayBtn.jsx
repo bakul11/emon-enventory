@@ -46,7 +46,7 @@ const CustomersPayBtn = ({ totalPay, CustomerData }) => {
     // handle submit data 
     const handleSubmitPurchages = () => {
         setLoadding(true)
-        fetch('/api/common/purchasesFromSupplier', {
+        fetch('/api/common/purchasesFromCustomers', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -62,6 +62,9 @@ const CustomersPayBtn = ({ totalPay, CustomerData }) => {
                     localStorage.setItem('customers-cart', JSON.stringify([...cart]))
                     router.push('/home/pos/customers-invoice')
                     toast.success(result?.message)
+                    setLoadding(false)
+                } else if (result.stockOut === 500) {
+                    toast.error(result?.message)
                     setLoadding(false)
                 } else {
                     if (result?.error) {

@@ -10,13 +10,14 @@ import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 import { BsEnvelope } from "react-icons/bs";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
 const page = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [loadding, setLoadding] = useState(false);
     const [error, setError] = useState('');
-
+    const router = useRouter()
 
 
     //handle submit form 
@@ -36,12 +37,12 @@ const page = () => {
         })
             .then(res => res.json())
             .then(result => {
-             
                 if (result?.message) {
                     setError(result?.message);
                     setLoadding(false)
                 }
                 if (result?.success) {
+                    router.push('/create-password')
                     toast.success(result?.message);
                     Cookies.set('userId', result?.user?._id);
                     setLoadding(false);

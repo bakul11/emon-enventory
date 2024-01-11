@@ -16,7 +16,7 @@ export const POST = async (req, res) => {
 
         //success message
         return NextResponse.json({
-            message: 'Please Check Your Email inbox and spam folder!',
+            message: 'Please set new password!',
             success: true,
             user
         })

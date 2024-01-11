@@ -82,13 +82,12 @@ const page = () => {
                                             <thead>
                                                 <tr className='text-[14px] text-left text-slate-700 font-[100] capitalize'>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>#</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>Name</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>email</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>mobile</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>address</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>Receivable</th>
-                                                    <th className='border-blue-100 border-b-[1px] p-2'>Payable</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Customers Details</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Total Cost</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Received</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Paid</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>due</th>
+                                                    <th className='border-blue-100 border-b-[1px] p-2'>Old Due</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>date</th>
                                                     <th className='border-blue-100 border-b-[1px] p-2'>action</th>
                                                 </tr>
